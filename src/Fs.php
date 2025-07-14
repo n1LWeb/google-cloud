@@ -23,7 +23,7 @@ use Google\Cloud\Storage\Bucket;
 use Google\Cloud\Storage\StorageClient;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\GoogleCloudStorage\GoogleCloudStorageAdapter;
-use League\Flysystem\GoogleCloudStorage\PortableVisibilityHandler;
+use League\Flysystem\GoogleCloudStorage\UniformBucketLevelAccessVisibility;
 use League\Flysystem\Visibility;
 
 /**
@@ -253,7 +253,7 @@ class Fs extends FlysystemFs
         $client = static::client($config);
         $bucket = $client->bucket(Craft::parseEnv($this->bucket));
 
-        return new GoogleCloudStorageAdapter($bucket, $this->_subfolder(), new PortableVisibilityHandler('allUsers'));
+        return new GoogleCloudStorageAdapter($bucket, $this->_subfolder(), new UniformBucketLevelAccessVisibility());
     }
 
     /**
